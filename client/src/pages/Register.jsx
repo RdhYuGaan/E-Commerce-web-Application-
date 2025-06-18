@@ -8,9 +8,14 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async () => {
+  try {
     await api.post('/auth/register', { email, password });
     navigate('/login');
-  };
+  } catch (error) {
+    console.error('Registration failed:', error.response?.data || error.message);
+    alert(error.response?.data?.message || 'Registration failed');
+  }
+};
 
   return (
     <div className="p-6">
